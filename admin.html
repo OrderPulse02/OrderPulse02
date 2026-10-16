@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Pulse Admin</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0fb981">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app"><div class="auth-wrap"><div class="spinner"></div></div></div>
+  <script>
+    // If something stops the app from starting, explain it on screen instead of spinning forever.
+    (function () {
+      function show(msg) {
+        if (window.__opStarted) return;
+        var el = document.getElementById('app');
+        if (el) el.innerHTML = '<div class="auth-wrap"><div class="card state-card" style="margin:0;max-width:520px">' +
+          '<h2>Order Pulse could not start</h2><p class="muted">' + msg + '</p>' +
+          '<p class="muted small">Try: reload the page &middot; check your internet &middot; make sure all files (css and js folders) were uploaded.</p>' +
+          '<button class="btn btn-primary" onclick="location.reload()">Reload</button></div></div>';
+      }
+      window.addEventListener('error', function (e) { if (e.message) show('Error: ' + String(e.message).replace(/</g, '&lt;')); });
+      window.addEventListener('unhandledrejection', function (e) { show('Error: ' + String((e.reason && e.reason.message) || e.reason).replace(/</g, '&lt;')); });
+      setTimeout(function () { show('The page took too long to load.'); }, 15000);
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/backend-supabase.js"></script>
+  <script src="js/backend-demo.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
