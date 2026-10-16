@@ -18,7 +18,9 @@ function createSupabaseBackend(cfg) {
   if (!window.supabase || !window.supabase.createClient) {
     throw new Error('Could not load the Supabase library. Check your internet connection and reload.');
   }
-  const sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY, {
+  // accept the URL even if it was pasted with /rest/v1/ or a trailing slash
+  const baseUrl = String(cfg.SUPABASE_URL).trim().replace(/\/(rest|auth)\/v1\/?$/, '').replace(/\/+$/, '');
+  const sb = window.supabase.createClient(baseUrl, cfg.SUPABASE_ANON_KEY, {
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
     realtime: { params: { eventsPerSecond: 20 } },
   });
